@@ -1,0 +1,37 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AgentNxt MCP Marketplace",
+  "description": "Marketplace of MCP servers for AI agents — pick tools, pay per use",
+  "url": "https://agnxxt.com/marketplace",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "creator": {
+    "@type": "Organization",
+    "name": "AgentNxt",
+    "url": "https://agnxxt.com"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "offerCount": "{{total_server_count}}",
+    "priceCurrency": "USD",
+    "lowPrice": "{{lowest_price}}",
+    "highPrice": "{{highest_price}}"
+  },
+  "hasPart": {
+    "@type": "ItemList",
+    "name": "MCP Servers",
+    "numberOfItems": "{{total_server_count}}",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "{{server_name}}",
+          "url": "{{server_page_url}}"
+        }
+      }
+    ]
+  }
+}

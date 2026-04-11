@@ -1,0 +1,41 @@
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "{{title}}",
+  "description": "{{summary}}",
+  "url": "{{page_url}}",
+  "totalTime": "{{estimated_time}}",
+  "tool": [
+    {
+      "@type": "HowToTool",
+      "name": "{{tool_needed}}"
+    }
+  ],
+  "supply": [
+    {
+      "@type": "HowToSupply",
+      "name": "{{api_key_or_account}}"
+    }
+  ],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "{{step_title}}",
+      "text": "{{step_description}}",
+      "url": "{{step_url}}"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "{{step_title}}",
+      "text": "{{step_description}}",
+      "url": "{{step_url}}"
+    }
+  ],
+  "author": {
+    "@type": "Organization",
+    "name": "AgentNxt",
+    "url": "https://agnxxt.com"
+  }
+}

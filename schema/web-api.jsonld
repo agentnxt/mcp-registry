@@ -1,0 +1,39 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebAPI",
+  "name": "{{provider_name}} MCP Server",
+  "description": "{{description}}",
+  "url": "{{sse_endpoint_url}}",
+  "documentation": "https://github.com/agentnxt/mcpservers/tree/main/marketplace/agentnxt/{{package_dir}}",
+  "provider": {
+    "@type": "Organization",
+    "name": "{{service_provider_name}}",
+    "url": "{{service_provider_url}}"
+  },
+  "termsOfService": "{{provider_tos_url}}",
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceType": "Streamable HTTP / SSE",
+    "serviceUrl": "{{sse_endpoint_url}}"
+  },
+  "category": "{{category}}",
+  "potentialAction": {
+    "@type": "ConsumeAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{sse_endpoint_url}}",
+      "contentType": "text/event-stream",
+      "httpMethod": "GET"
+    },
+    "actionAccessibilityRequirement": {
+      "@type": "ActionAccessSpecification",
+      "requiresSubscription": true,
+      "category": "OAuth"
+    }
+  },
+  "broker": {
+    "@type": "Organization",
+    "name": "AgentNxt",
+    "url": "https://agnxxt.com"
+  }
+}

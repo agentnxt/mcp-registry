@@ -1,0 +1,53 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "{{server_name}}",
+  "description": "{{description}}",
+  "applicationCategory": "{{category}}",
+  "applicationSubCategory": "MCP Server",
+  "operatingSystem": "Node.js",
+  "programmingLanguage": "TypeScript",
+  "runtimePlatform": "Model Context Protocol",
+  "author": {
+    "@type": "Organization",
+    "name": "{{author_name}}",
+    "url": "{{author_url}}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AgentNxt",
+    "url": "https://agnxxt.com"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "{{price_per_tool}}",
+    "priceCurrency": "USD",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": 1,
+        "unitText": "tool call"
+      }
+    },
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "AgentNxt"
+    }
+  },
+  "softwareRequirements": "{{env_vars_description}}",
+  "featureList": [
+    "{{tool_1}}",
+    "{{tool_2}}"
+  ],
+  "license": "{{license_url}}",
+  "codeRepository": "https://github.com/agentnxt/mcpservers",
+  "downloadUrl": "https://github.com/agentnxt/mcpservers/tree/main/packages/{{package_dir}}",
+  "isAccessibleForFree": false,
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{rating}}",
+    "ratingCount": "{{rating_count}}"
+  }
+}
