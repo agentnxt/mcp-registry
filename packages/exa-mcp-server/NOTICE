@@ -1,0 +1,7 @@
+ORIGINAL AUTHOR: Exa Labs
+SOURCE: https://github.com/exa-labs/exa-mcp-server
+LICENSE: MIT License
+
+This package is a copy of the Exa MCP server for web search and crawling,
+included in the agentnxt/mcpservers catalog for customer convenience.
+All credit for the original implementation belongs to the authors above.

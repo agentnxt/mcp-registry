@@ -1,6 +1,6 @@
 ORIGINAL AUTHOR: Anthropic, PBC and contributors
-SOURCE: https://github.com/modelcontextprotocol/servers
-LICENSE: Apache-2.0 / MIT
+SOURCE: https://github.com/modelcontextprotocol/servers-archived
+LICENSE: MIT License
 
 This package is a copy of an official Model Context Protocol reference server,
 included in the agentnxt/mcpservers catalog for customer convenience.
