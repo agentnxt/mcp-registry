@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AGenNext/mcp-registry/schemas/mcp-server.schema.json",
+  "title": "MCP Server Registry Manifest",
+  "description": "Machine-readable metadata for an MCP server published in AGenNext/mcp-registry.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "name",
+    "version",
+    "description",
+    "status",
+    "license",
+    "entrypoints",
+    "runtime",
+    "transport",
+    "capabilities",
+    "permissions",
+    "maintainers"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "id": {
+      "type": "string",
+      "description": "Stable lowercase registry id. Should match the package folder name.",
+      "pattern": "^[a-z0-9][a-z0-9-]{1,100}[a-z0-9]$"
+    },
+    "name": { "type": "string", "minLength": 1, "maxLength": 140 },
+    "version": {
+      "type": "string",
+      "description": "Semantic version or date-based version for the registry package.",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:[-+][0-9A-Za-z.-]+)?$|^\\d{4}\\.\\d{1,2}\\.\\d{1,2}(?:[-+][0-9A-Za-z.-]+)?$"
+    },
+    "description": { "type": "string", "minLength": 20, "maxLength": 800 },
+    "status": { "type": "string", "enum": ["experimental", "active", "maintenance", "deprecated"] },
+    "homepage": { "type": "string", "format": "uri" },
+    "repository": { "type": "string", "format": "uri" },
+    "license": { "type": "string", "minLength": 1 },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,40}$" },
+      "default": []
+    },
+    "categories": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "automation",
+          "browser",
+          "cloud",
+          "data",
+          "database",
+          "developer-tools",
+          "filesystem",
+          "infrastructure",
+          "messaging",
+          "observability",
+          "productivity",
+          "search",
+          "security",
+          "storage",
+          "workflow"
+        ]
+      },
+      "default": []
+    },
+    "entrypoints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package"],
+      "properties": {
+        "package": { "type": "string", "pattern": "^package\\.json$|^[A-Za-z0-9._/-]+package\\.json$" },
+        "readme": { "type": "string", "pattern": "^README\\.md$|^[A-Za-z0-9._/-]+README\\.md$" },
+        "source": { "type": "string" },
+        "dockerfile": { "type": "string" },
+        "configExample": { "type": "string" }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "type": "string", "enum": ["node", "python", "docker", "binary", "hosted", "mixed", "other"] },
+        "minimumVersion": { "type": "string" },
+        "packageManager": { "type": "string", "enum": ["npm", "pnpm", "yarn", "bun", "pip", "poetry", "uv", "docker", "none", "other"] },
+        "platforms": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "enum": ["macos", "linux", "windows", "docker", "web", "other"] },
+          "default": []
+        },
+        "dockerImage": { "type": "string" }
+      }
+    },
+    "transport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["types"],
+      "properties": {
+        "types": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "enum": ["stdio", "sse", "streamable-http", "websocket", "other"] }
+        },
+        "default": { "type": "string", "enum": ["stdio", "sse", "streamable-http", "websocket", "other"] },
+        "notes": { "type": "string", "maxLength": 1000 }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tools"],
+      "properties": {
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "description"],
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          },
+          "default": []
+        },
+        "resources": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "prompts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        }
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "description": "APIs, databases, local services, MCP servers, or infrastructure this server depends on.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "name"],
+        "properties": {
+          "type": { "type": "string", "enum": ["api", "database", "service", "mcp", "docker", "cloud", "filesystem", "other"] },
+          "name": { "type": "string" },
+          "required": { "type": "boolean", "default": true },
+          "notes": { "type": "string" }
+        }
+      },
+      "default": []
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["network", "filesystem", "shell", "secrets"],
+      "properties": {
+        "network": { "type": "string", "enum": ["none", "optional", "required"] },
+        "filesystem": { "type": "string", "enum": ["none", "read", "read-write"] },
+        "shell": { "type": "string", "enum": ["none", "optional", "required"] },
+        "browser": { "type": "string", "enum": ["none", "optional", "required"], "default": "none" },
+        "secrets": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{1,100}$" }
+        },
+        "notes": { "type": "string", "maxLength": 1200 }
+      }
+    },
+    "maintainers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "github": { "type": "string", "pattern": "^[A-Za-z0-9-]{1,39}$" },
+          "email": { "type": "string", "format": "email" }
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reviewed": { "type": "boolean", "default": false },
+        "reviewNotes": { "type": "string", "maxLength": 1000 },
+        "dataAccessNotes": { "type": "string", "maxLength": 1000 }
+      },
+      "default": {}
+    }
+  }
+}
